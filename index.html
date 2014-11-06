@@ -30,35 +30,32 @@
                 brick-breaker <a href="https://github.com/wgpsutherland"><small>by wgpsutherland <span class="fa fa-github"></span></small></a>
             </h1>
             <hr>
-        </div>
 
-        <!--wrapper-->
-        <div id="wrapper">
-            
-            <!-- main content area -->
-            <section id="main">     
-                
-                <div id="canvas">
-                    <!-- sets the dimensions of the canvas -->
-                    <canvas id="canvas_example" width="300" height="400"></canvas>
-                    <!-- a button which activates the javascript to run the game -->
-                    
-                </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
 
-                <button class="gameButton" onclick="init()">Start Game!</button>
-                    <!-- displays the score in the game -->
+                    <div id="canvas">
+                        <canvas id="canvas_example" width="300" height="400">
+                        </canvas>
+                    </div>
+                    <br>
+                    <button class="gameButton" onclick="init()">
+                        Start Game!
+                    </button>
+                    <br>
                     <div id="message_area"></div>
-                
-                <!-- displays the game rules and instructions -->
-                <section id="information">
-                    <p>
-                        Welcome to BrickBreaker. Click 'Start Game' to begin. The objective is to destroy all of the bricks without letting the ball pass the paddle. Try and hit the ball with the middle of the paddle, otherwise it's going to speed up on you! Click 'Start Game' at any point to restart the game.
-                    </p>
-                </section>
-
-            </section> <!--main-->
-            
-        </div> <!--wrapper-->
+                    <br>
+                    <section id="information">
+                        <p>
+                            Welcome to BrickBreaker. Click 'Start Game' to begin. The objective is to destroy all of the bricks without letting the ball pass the paddle. Try and hit the ball with the middle of the paddle, otherwise it's going to speed up on you! Click 'Start Game' at any point to restart the game.
+                        </p>
+                    </section>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <br>
+        </div>
         
     </body>
 
