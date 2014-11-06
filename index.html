@@ -1,0 +1,65 @@
+<!-- Written by Will Sutherland - ara12wgs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>Will Sutherland</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="./css/style.css"/>
+        <meta name="author" content="Will Sutherland"/>
+        <meta name="description" content="A simple game of Brick Breaker"/>
+        <meta name="keywords" content="Will Sutherland, Computer Science, Sheffield"/>
+
+        <!-- accessing jQuery for parts of my javascript file -->
+        <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <!-- ball, brick, and game code -->
+        <script src="./brickbreaker/BrickBreakerBall.js"></script>
+        <script src="./brickbreaker/BrickBreakerBrick.js"></script>
+        <script src="./brickbreaker/BrickBreaker.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>
+                brick-breaker <a href="https://github.com/wgpsutherland"><small>by wgpsutherland <span class="fa fa-github"></span></small></a>
+            </h1>
+            <hr>
+        </div>
+
+        <!--wrapper-->
+        <div id="wrapper">
+            
+            <!-- main content area -->
+            <section id="main">     
+                
+                <div id="canvas">
+                    <!-- sets the dimensions of the canvas -->
+                    <canvas id="canvas_example" width="300" height="400"></canvas>
+                    <!-- a button which activates the javascript to run the game -->
+                    
+                </div>
+
+                <button class="gameButton" onclick="init()">Start Game!</button>
+                    <!-- displays the score in the game -->
+                    <div id="message_area"></div>
+                
+                <!-- displays the game rules and instructions -->
+                <section id="information">
+                    <p>
+                        Welcome to BrickBreaker. Click 'Start Game' to begin. The objective is to destroy all of the bricks without letting the ball pass the paddle. Try and hit the ball with the middle of the paddle, otherwise it's going to speed up on you! Click 'Start Game' at any point to restart the game.
+                    </p>
+                </section>
+
+            </section> <!--main-->
+            
+        </div> <!--wrapper-->
+        
+    </body>
+
+</html>
