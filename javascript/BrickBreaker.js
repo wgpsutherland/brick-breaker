@@ -1,9 +1,5 @@
 /* Written by Will Sutherland - ara12wgs */
 
-/* 
-** Declare variables:
-*/
-
 var context;
 var intervalId;
 //Width of the canvas
@@ -12,7 +8,7 @@ var WIDTH;
 var HEIGHT;
 //The number of balls in the game
 var NUM_BALLS = 1;
-//Number of collumns of bricks 
+//Number of collumns of bricks
 var NUM_BRICK_COLLUMN = 5;
 //Number of rows of bricks
 var NUM_BRICK_ROW = 6;
@@ -34,7 +30,7 @@ function clear() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
 }
 
-/* 
+/*
 ** Keyboard interaction:
 */
 
@@ -53,7 +49,13 @@ function onKeyUp(evt) {
 $(document).keydown(onKeyDown);
 $(document).keyup(onKeyUp);
 
-/* 
+$(function() {
+    $("#canvas").on("click", function() {
+        init();
+    });
+});
+
+/*
 ** Mouse interaction:
 */
 
@@ -67,7 +69,7 @@ function onMouseMove(evt) {
 
 $(document).mousemove(onMouseMove);
 
-/* 
+/*
 ** Paddle:
 */
 
@@ -77,7 +79,7 @@ function initPaddle() {
     paddleh = 15;
     // The intial x middle point of the paddle is half way along the width of the canvas
     paddlex = (WIDTH/2)-(paddlew/2);
-    // Starting y position of the paddle, with a gap the size of it's height below 
+    // Starting y position of the paddle, with a gap the size of it's height below
     paddley = HEIGHT-(paddleh*2);
     paddlehTop= paddleh*2;
 }
@@ -101,16 +103,16 @@ function drawPaddle() {
     context.drawImage(imgPaddle, paddlex, paddley);
 }
 
-/* 
+/*
 ** Bricks:
 */
 
 // Sets the initial values of the bricks
 function initBricks() {
-    // Initialises the bricks array 
+    // Initialises the bricks array
     bricks = new BrickList();
 
-    // Same size as image which will be transposed on top 
+    // Same size as image which will be transposed on top
     brickw = 50;
     brickh = 15;
 
@@ -120,7 +122,7 @@ function initBricks() {
 
             // Sets initial x position of the brick, dependant on which collumn the loop is on
             var sx = 15+(brickw+5)*i;
-            // Initial y position of the brick, dependant on the row the loop is on 
+            // Initial y position of the brick, dependant on the row the loop is on
             var sy = 10 + ((brickh+5)*j);
             var w = brickw;
             var h = brickh;
@@ -129,14 +131,14 @@ function initBricks() {
             bricks.add(brick);
     }
   }
-} 
+}
 
 // Draws the brick to the canvas
 function drawBricks() {
     bricks.draw(context, imgBrick);
 }
 
-/* 
+/*
 ** Balls:
 */
 
@@ -154,12 +156,12 @@ function initBalls() {
         var sy = 300-50;
         //Initial speed, ball starts moving upwards so that the player is not caught out straight away
         var dx = 0;
-        var dy = 1; 
+        var dy = 1;
         var ball = new Ball(sx,sy,r,dx,dy, true);
         //Adds the ball to the array
         balls.add(ball);
     }
-}      
+}
 
 //Draw the balls to the canvas
 function drawBalls() {
@@ -178,7 +180,7 @@ function doSomethingMissedBall(b) {
     //If there are no visible balls it is game over
     if (visibleBalls==0) {
         //Jquery changes the background image to GAME OVER
-        $('#canvas').css("background-image", "url(./brickbreaker/gameOverBackground.png)");
+        $('#canvas').css("background-image", "url(./images/gameOverBackground.png)");
     }
 }
 
@@ -204,15 +206,15 @@ function displayScore() {
     }
 
     //Displays the player's score underneath the game
-    else {$('#message_area').html('<p>score: '+score+' </p>');}
+    else {$('#message_area').html(score);}
 }
 
 function gameWin() {
     //Tells the player they've won the game and changes the background image
     $('#message_area').html('<p>game won! </p>');
-    $('#canvas').css("background-image", "url(../BrickBreaker/gameWonBackground.png)");
+    $('#canvas').css("background-image", "url(./images/gameWonBackground.png)");
 }
-  
+
 /*
 ** Updating:
 */
@@ -238,9 +240,9 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
             b.setDY(-b.getDY());
 
             //Paddle:
-            //If ball is below the top of the paddle's y position 
+            //If ball is below the top of the paddle's y position
             else if (b.getY() + b.getDY() > ((HEIGHT-b.getR())-paddlehTop)) {
-                var bx = b.getX(); 
+                var bx = b.getX();
 
                 //If ball is hits the paddle
                 if (bx+b.getR() > paddlex && bx-b.getR() < paddlex + paddlew) {
@@ -252,7 +254,7 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
 
                     //If the ball hits 1/8 or 8/8 section of paddle it has a large speed increase
                     if ((bx+b.getR() > (paddlex) && bx-b.getR() < paddlex + (paddlew/8))||(bx+b.getR() > paddlex+(7*(paddlew/8)) && bx-b.getR() < paddlex + paddlew)){
-                        b.setDY(speedIncreaseY2*b.getDY());   
+                        b.setDY(speedIncreaseY2*b.getDY());
                         //If speed is 0 and hits left side of paddle, move ball left
                         if (b.getDX()==0 && bx+b.getR() > (paddlex) && bx-b.getR() < paddlex + (paddlew/8)) {
                             b.setDX(-0.1);
@@ -272,15 +274,15 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
                     }
                     //If the ball hits 2/8 or 7/8 section of paddle it has a small speed increase
                     if ((bx+b.getR() > (paddlex + (paddlew/8)) && bx-b.getR() < paddlex + (2*(paddlew/8)))||(bx+b.getR() > paddlex+(6*(paddlew/8)) && bx-b.getR() < paddlex + (7*(paddlew/8)))) {
-                        b.setDY(speedIncreaseY1*b.getDY()); 
+                        b.setDY(speedIncreaseY1*b.getDY());
                         //If speed is 0 and hits left side of paddle, move ball left
                         if (b.getDX()==0 && bx+b.getR() > (paddlex + (paddlew/8)) && bx-b.getR() < paddlex + (2*(paddlew/8))) {
                             b.setDX(-0.05);
-                        }                    
+                        }
                         //If speed is 0 and hits right side of paddle, move ball right
                         if (b.getDX()==0 && bx+b.getR() > paddlex+(6*(paddlew/8)) && bx-b.getR() < paddlex + (7*(paddlew/8))) {
                             b.setDX(0.05);
-                        }     
+                        }
                         //if moving left to right
                         if (b.getDX()>0) {
                             b.setDX(b.getDX()+0.05);
@@ -296,7 +298,7 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
                 else {
                     b.setVisible(false);
                     doSomethingMissedBall(i);
-                } 
+                }
             }
 
             //Initialise a counter
@@ -324,9 +326,9 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
             if (visibleBricks==0) {
                 //Makes the balls on screen disappear when the game is won
                 b.setVisible(false);
-            }   
+            }
         }
-    }     
+    }
 
     //Updates the ball's position based on its previous position and speed
     for (var i = 0; i < balls.getNumBalls(); ++i) {
@@ -334,13 +336,13 @@ for (var i = 0; i < balls.getNumBalls(); ++i) {
         ball.setX( ball.getX() + ball.getDX() );
         ball.setY( ball.getY() + ball.getDY() );
     }
-}    
+}
 
 //Clears the canvas and then draws updated states of the balls, paddle and bricks
 function render() {
-    clear();      
+    clear();
     updatePaddle();
-    drawPaddle();      
+    drawPaddle();
     drawBalls();
     updateBallsAndBricks();
     drawBricks();
@@ -360,31 +362,37 @@ var imgBrick = new Image();
 //Creates an interaction between the objects and the images associated with them
 function loadResources() {
     imgBall.onload = startInteraction;
-    imgBall.src = "./brickbreaker/Ball.png";
+    imgBall.src = "./images/Ball.png";
 
     imgPaddle.onload = startInteraction;
-    imgPaddle.src = "./brickbreaker/Paddle.png";
+    imgPaddle.src = "./images/Paddle.png";
 
     imgBrick.onload = startInteraction;
-    imgBrick.src = "./brickbreaker/Brick.png";
+    imgBrick.src = "./images/Brick.png";
 }
 
 //When all images are loaded begin the animation
 function startInteraction() {
     imageCount++;
-    if (imageCount == NUM_IMAGES) 
+    if (imageCount == NUM_IMAGES)
         //Begin animation at set speed
         intervalId = setInterval(render, 1);
 }
 
-//Initialises everything when the game begins 
+//Initialises everything when the game begins
 function init() {
     context = $('#canvas_example')[0].getContext("2d");
     WIDTH = $('#canvas_example').width();
     HEIGHT = $('#canvas_example').height();
     canvasMinX = $('#canvas_example').offset().left;
+
+    console.log(context);
+    console.log(WIDTH);
+    console.log(HEIGHT);
+    console.log(canvasMinX);
+
     canvasMaxX = canvasMinX + WIDTH;
-    $('#canvas').css("background-image", "url(./brickbreaker/gameBackground.png)");
+    $('#canvas').css("background-image", "url(./images/gameBackground.png)");
     initBalls();
     initPaddle();
     initBricks();
